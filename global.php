@@ -16,6 +16,28 @@
             return array();
         }
     }
+    function ThrowError(string $error, string $error_descryption){
+        $_SESSION["Error"] = $error;
+        $_SESSION["ErrorDescryption"] = $error_descryption;
+        header("Location: error.php");
+        exit();
+    }
+    function SetCurrentUser(User $user){
+        if(isset($user)){
+            $_SESSION["User"] = serialize($user);
+        }
+        else{
+            throw new Exception("User is undefined!");
+        }
+    }
+    function GetCurrentUser() : User{
+        if(isset($_SESSION["User"])){
+            return unserialize($_SESSION["User"]);
+        }
+        else{
+            throw new Exception("Current user is not set!");
+        }
+    }
     class User{
         public string $username;
         public $encrypted_password;
@@ -41,6 +63,9 @@
             else{
                 throw new Exception("In class user are invalid data");
             }
+        }
+        public function ChangeBIO(string $new_bio) {
+            $this->bio = $new_bio;
         }
     }
 ?>

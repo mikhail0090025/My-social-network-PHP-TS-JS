@@ -1,12 +1,11 @@
 <?php
 session_start();
 require_once("global.php");
-if(isset($_SESSION["User"])){
-    $current_user = unserialize($_SESSION["User"]);
+try {
+    $current_user = GetCurrentUser();
 }
-else{
-    $_SESSION["Error"] = "User is undefined";
-    $_SESSION["ErrorDescryption"] = "User is undefined. Some problem with session occured. Try to log in again.";
+catch(Throwable $ex){
+    ThrowError("User is undefined", "User is undefined. Some problem with session occured. Try to log in again.<br>" . $ex->getMessage());
     header("Location: error.php");
     exit();
 }
