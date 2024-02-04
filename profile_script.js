@@ -5,7 +5,7 @@ if (btn_change_desc != null && block_change_descr != null) {
     btn_change_desc.onclick = function () {
         field_showed = !field_showed;
         if (field_showed) {
-            block_change_descr.innerHTML = "<form action='server.php' method='post'><label for='new_bio'>Write here your new bio:</label><br><textarea cols='50' rows='10' id='new_bio' name='new_bio'>This is my new bio!</textarea><br><input type='submit' class='btn btn-primary' value='Save' id='ChangeBIO'><button class='btn btn-secondary' onclick='HideBioChanger();'>Cancel</button></form>";
+            block_change_descr.innerHTML = "<form action='server.php' method='post'><label for='new_bio'>Write here your new bio:</label><br><textarea cols='50' rows='10' id='new_bio' name='new_bio'>This is my new bio!</textarea><br><input type='submit' class='btn btn-primary' value='Save' id='ChangeBIO' name='ChangeBIO'>&nbsp;<button class='btn btn-secondary' onclick='HideBioChanger();'>Cancel</button></form>";
         }
         else {
             block_change_descr.innerHTML = "";

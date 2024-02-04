@@ -8,11 +8,11 @@
             if(filesize("users.txt") === 0 || !is_array(unserialize(file_get_contents("users.txt")))){
                 return array();
             }
-            $_COOKIE["Users"] = unserialize(file_get_contents("users.txt"));
+            //$_COOKIE["Users"] = unserialize(file_get_contents("users.txt"));
             return unserialize(file_get_contents("users.txt"));
         }
         else{
-            $file = fopen("users.txt", "a+");
+            $file = fopen("users.txt", "c+");
             return array();
         }
     }
@@ -37,6 +37,22 @@
         else{
             throw new Exception("Current user is not set!");
         }
+    }
+    function UserByName(string $username) : User{
+        $users = UsersList();
+        foreach($users as $user){
+            if($user->username == $username) return $user;
+        }
+        throw new Exception("User with username $username was not found");
+    }
+    function UserByNameFromList(string $username, $users_list) : User{
+        if(!is_array($users_list)){
+            throw new Exception("Variable $" . "users_list was not a list. $users_list.");
+        }
+        foreach($users_list as $user){
+            if($user->username == $username) return $user;
+        }
+        throw new Exception("User with username $username was not found");
     }
     class User{
         public string $username;
@@ -66,6 +82,16 @@
         }
         public function ChangeBIO(string $new_bio) {
             $this->bio = $new_bio;
+        }
+    }
+    class Message{
+        public string $text;
+        public string $username;
+        public DateTime $send_time;
+        public function __construct(string $text, string $username, DateTime $time) {
+            $this->text = $text;
+            $this->username = $username;
+            $this->send_time = $time;
         }
     }
 ?>

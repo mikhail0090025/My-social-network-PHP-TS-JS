@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once("global.php");
+header("Cache-Control: no-cache, must-revalidate");
 try {
     $current_user = GetCurrentUser();
 }
